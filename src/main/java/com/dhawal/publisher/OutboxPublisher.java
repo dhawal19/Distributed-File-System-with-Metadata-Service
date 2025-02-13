@@ -38,6 +38,7 @@ public class OutboxPublisher {
     protected void processEvent(OutboxEvent event) {
         try{
             rabbitTemplate.convertAndSend("outbox-events", event.getEventType(), event);
+            log.debug("Published event: " + event.getEventType() + " with id: " + event.getId());
             event.setPublishedAt(LocalDateTime.now());
             event.setStatus("Successful");
         }
@@ -47,7 +48,7 @@ public class OutboxPublisher {
             event.setStatus("Failed");
         }
         finally{
-            outboxEventRepository.save(event);
+            outboxEventRepository.save(event);;
         }
     }
 }

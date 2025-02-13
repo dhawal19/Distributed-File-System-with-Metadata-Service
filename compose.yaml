@@ -13,8 +13,8 @@ services:
       SPRING_RABBITMQ_PASSWORD: guest
     ports:
       - "8080:8080"
-    networks:
-      - app-network
+#    networks:
+#      - app-network
 
   mongodb:
     image: mongo:latest
@@ -22,8 +22,8 @@ services:
     restart: always
     ports:
       - "27017:27017"
-    networks:
-      - app-network
+#    networks:
+#      - app-network
     volumes:
       - mongo-data:/data/db
 
@@ -34,14 +34,16 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-    networks:
-      - app-network
+#    networks:
+#      - app-network
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
 
 networks:
-  app-network:
+  default:
+    external:
+      name: app-network
 
 volumes:
   mongo-data:
