@@ -37,7 +37,7 @@ public class OutboxPublisher {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     protected void processEvent(OutboxEvent event) {
         try{
-            rabbitTemplate.convertAndSend("outbox-events", event.getEventType(), event);
+            rabbitTemplate.convertAndSend("outbox-events", "outbox-event", event);
             log.debug("Published event: " + event.getEventType() + " with id: " + event.getId());
             event.setPublishedAt(LocalDateTime.now());
             event.setStatus("Successful");
