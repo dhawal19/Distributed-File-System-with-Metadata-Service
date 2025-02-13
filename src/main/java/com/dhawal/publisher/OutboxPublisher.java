@@ -48,7 +48,7 @@ public class OutboxPublisher {
             event.setStatus("Failed");
         }
         finally{
-            outboxEventRepository.save(event);;
+            outboxEventRepository.save(event);
         }
     }
 }
